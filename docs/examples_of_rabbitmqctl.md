@@ -87,6 +87,22 @@ Adding vhost "goapp-vhost" ...
 
 ### set_permissions
 
+The `set_permissions` subcommand could be used to set user's permissions for the considered virtual host. The permissions 
+consist of *configure*, *write* and *read*. It uses regular expressions to grant user the permissions, and the `.*` regular
+expression means all the permission. The format of `set_permissions` subcommand is as follows.
+
+```bash
+rabbitmqctl [--node <node>] [--longnames] [--quiet] set_permissions [--vhost <vhost>] <username> <conf> <write> <read>
+```
+
+The `--vhost` option is used to set virtual host which the `<username>` could access to.
+
+**set all permissions to a user**
+
+```bash
+$ rabbitmqctl set_permissions -p goapp-vhost goadmin ".*" ".*" ".*"
+Setting permissions for user "goadmin" in vhost "goapp-vhost" ...
+```
 
 
 
