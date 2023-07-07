@@ -32,7 +32,7 @@ There are 4 different kinds/types of exchanges.
 
 The diagram below illustrates the different exchange types of how the messages are routed.
 
-![](./images/4 exchange types.png)
+![](images/4_exchange_types.png)
 
 ## Routing
 
