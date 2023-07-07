@@ -43,6 +43,10 @@ that the exchange uses to route the messages.
 If no queue is bound to an exchange, or if the routing strategy can't find a matching destination queue, the message that
 was published to the exchange will be discarded silently.
 
+# Message structure
+
+
+
 # Traffic cost
 
 Establishing a connection is costly. The handshake process for an AMQP connection requires at least seven TCP packets. Each
