@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # enable plugins
 rabbitmq-plugins enable rabbitmq_management
 

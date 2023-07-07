@@ -21,6 +21,12 @@ Routing rules include *direct* (point to point), *topic* (publish-subscribe), *f
 
 **Binding**: a virtual link between an exchange and a queue. It enables messages flow from an exchange to a queue.
 
+## Routing
+
+A routing strategy determines which queue (or queues) the message will be routed to. The routing strategy bases its decision
+on a routing key (a free form string) and potentially on message meta-information. You can think the routing key as an address
+that the exchange uses to route the messages.
+
 # Traffic cost
 
 Establishing a connection is costly. The handshake process for an AMQP connection requires at least seven TCP packets. Each

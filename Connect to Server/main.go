@@ -15,6 +15,12 @@ func main() {
 
 	fmt.Println("Connect is closed: ", conn.IsClosed())
 
+	// This may be a bug
+	// @link https://github.com/rabbitmq/amqp091-go/issues/209
+	connState := conn.ConnectionState()
+	fmt.Println("Server name: ", connState.ServerName)
+	fmt.Println("Version: ", connState.Version)
+
 	channel, err := conn.Channel()
 	if err != nil {
 		log.Fatal(err)
