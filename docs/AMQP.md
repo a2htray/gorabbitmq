@@ -21,11 +21,27 @@ Routing rules include *direct* (point to point), *topic* (publish-subscribe), *f
 
 **Binding**: a virtual link between an exchange and a queue. It enables messages flow from an exchange to a queue.
 
+## Exchange
+
+There are 4 different kinds/types of exchanges.
+
+1. direct: routing key in messages must be matched with the queue's routing key.
+2. fanout: messages will be routed to all queues bound to the fanout exchange.
+3. topic: the wildcards must be matched.
+4. headers: routing by using the message header properties.
+
+The diagram below illustrates the different exchange types of how the messages are routed.
+
+![](./images/4 exchange types.png)
+
 ## Routing
 
 A routing strategy determines which queue (or queues) the message will be routed to. The routing strategy bases its decision
 on a routing key (a free form string) and potentially on message meta-information. You can think the routing key as an address
 that the exchange uses to route the messages.
+
+If no queue is bound to an exchange, or if the routing strategy can't find a matching destination queue, the message that
+was published to the exchange will be discarded silently.
 
 # Traffic cost
 
