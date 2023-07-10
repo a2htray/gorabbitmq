@@ -70,7 +70,7 @@ func Send(conn *amqp.Connection, exchangeName string) {
 	FailedOnError(err, "<Send> create channel failed")
 	defer channel.Close()
 
-	routingKeys := []string{"apple", "banana"}
+	routingKeys := []string{"apple.123", "banana.123"}
 	ctx := context.Background()
 	for i := 0; i < 10; i++ {
 		idx := rand.Intn(2)
@@ -92,7 +92,7 @@ func Send(conn *amqp.Connection, exchangeName string) {
 	FailedOnError(err, "<Send> send message failed")
 }
 
-func Receive(conn *amqp.Connection, consumerName, queueName string, callback func(string, []byte)) {
+func Receive(conn *amqp.Connection, consumerName, queueName string, callback func(string, amqp.Delivery)) {
 	fmt.Printf("<Receive> consumer %s starts to receive messages\n", consumerName)
 	channel, err := conn.Channel()
 	FailedOnError(err, "<Receive> create channel failed")
@@ -109,7 +109,7 @@ func Receive(conn *amqp.Connection, consumerName, queueName string, callback fun
 	)
 	FailedOnError(err, fmt.Sprintf("<Receive> consumer %s fails to receive messages", consumerName))
 	for delivery := range chDelivery {
-		callback(consumerName, delivery.Body)
+		callback(consumerName, delivery)
 	}
 }
 
@@ -124,23 +124,23 @@ func main() {
 	aQueue := CreateQueue(conn, "app.queue.a")
 	bQueue := CreateQueue(conn, "app.queue.b")
 
-	BindExchangeAndQueue(conn, aQueue.Name, topicExchangeName, "a.*")
-	BindExchangeAndQueue(conn, bQueue.Name, topicExchangeName, "b.*")
+	BindExchangeAndQueue(conn, aQueue.Name, topicExchangeName, "apple.*")
+	BindExchangeAndQueue(conn, bQueue.Name, topicExchangeName, "banana.*")
 
 	go func() {
 		Send(conn, topicExchangeName)
 	}()
 
-	var callback = func(consumerName string, body []byte) {
-		fmt.Println(consumerName, string(body))
+	var callback = func(consumerName string, delivery amqp.Delivery) {
+		fmt.Println(consumerName, string(delivery.Body), delivery.RoutingKey)
 	}
 
-	// consume messages with topic 'a*'
+	// consume messages with topic 'apple.*'
 	go func() {
 		Receive(conn, "consumer.a", aQueue.Name, callback)
 	}()
 
-	// consume messages with topic 'b*'
+	// consume messages with topic 'banana.*'
 	go func() {
 		Receive(conn, "consumer.b", bQueue.Name, callback)
 	}()
