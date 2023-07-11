@@ -41,7 +41,8 @@ queues.
 
 ## Queue
 
-RabbitMQ can deal with hundreds of queues and bindings without a problem.
+RabbitMQ can deal with hundreds of queues and bindings without a problem. A queue can have multiple consumers, unless 
+the exclusive tag is used. 
 
 ## Routing
 
