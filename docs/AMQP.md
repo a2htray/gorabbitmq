@@ -32,6 +32,10 @@ There are 4 different kinds/types of exchanges.
 
 The diagram below illustrates the different exchange types of how the messages are routed.
 
+### Fanout exchange
+
+Fanout exchange takes all messages that are coming in and delivers them to all queues that are bound to it. 
+
 ### Topic exchange
 
 Unlike the direct exchange that routes messages to one queue maximum, the topic exchange can route messages to multiple
