@@ -32,6 +32,12 @@ There are 4 different kinds/types of exchanges.
 
 The diagram below illustrates the different exchange types of how the messages are routed.
 
+![](images/4_exchange_types.png)
+
+Each time a queue is created, it gets automatically bound to the default exchange with its queue name as the routing key.
+The default exchange is a direct and durable exchange named "" (an empty string) that is automatically created by RabbitMQ
+for each virtual host.
+
 ### Fanout exchange
 
 Fanout exchange takes all messages that are coming in and delivers them to all queues that are bound to it. 
@@ -41,7 +47,10 @@ Fanout exchange takes all messages that are coming in and delivers them to all q
 Unlike the direct exchange that routes messages to one queue maximum, the topic exchange can route messages to multiple
 queues.
 
-![](images/4_exchange_types.png)
+### Headers exchange
+
+The headers exchange allows the routing of messages based on their headers, which are custom key-value pairs stored in the
+message properties.
 
 ## Queue
 
