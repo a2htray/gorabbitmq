@@ -55,7 +55,22 @@ message properties.
 ## Queue
 
 RabbitMQ can deal with hundreds of queues and bindings without a problem. A queue can have multiple consumers, unless 
-the exclusive tag is used. 
+the exclusive tag is used.
+
+Durable queue metadata is stored on disk while a transient queue stores it in memory.
+
+> The RabbitMQ document recommends that users get familiar with quorum queues and consider them instead of classic mirrored
+> queues where possible.
+
+### Mirror queue
+
+**The process of mirror queue**
+
+A RabbitMQ contains one master queue and many slave queues. The master queue receives the messages from the client, and then
+synchronizes those messages to all slave queues. After that, the master queue sends an ack message to the producer. If the master
+queue crashes, one of the slave queue will become the master queue.
+
+### Quorum queue
 
 ## Routing
 
